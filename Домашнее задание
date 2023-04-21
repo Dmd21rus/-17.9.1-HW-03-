@@ -1,0 +1,39 @@
+def binary_search(lst, x):
+    """
+    Функция для реализации двоичного поиска в отсортированном списке lst.
+    Возвращает индекс элемента x в списке lst, если он есть, или None в противном случае.
+    """
+    left, right = 0, len(lst) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if lst[mid] == x:
+            return mid
+        elif lst[mid] < x:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return None
+
+
+numbers = input("Введите последовательность чисел через пробел: ").split()
+numbers = [int(num) for num in numbers]  # преобразуем список строк в список чисел
+numbers.sort()  # сортируем список по возрастанию
+
+x = input("Введите число для поиска: ")
+try:
+    x = int(x)
+except ValueError:
+    print("Введено некорректное число.")
+    exit()
+
+# выполняем двоичный поиск в отсортированном списке
+idx = binary_search(numbers, x)
+
+if idx is None:
+    print("Число", x, "не найдено в последовательности.")
+else:
+    print("Число", x, "найдено в последовательности.")
+    if idx > 0:
+        print("Предыдущее число:", numbers[idx-1])
+    if idx < len(numbers) - 1:
+        print("Следующее число:", numbers[idx+1])
